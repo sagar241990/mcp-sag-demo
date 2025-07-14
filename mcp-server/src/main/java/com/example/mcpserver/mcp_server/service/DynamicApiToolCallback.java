@@ -23,15 +23,11 @@ public class DynamicApiToolCallback implements ToolCallback {
 
     @Override
     public String call(String toolInput) {
-        // Parse toolInput if needed (likely JSON)
-        log.info("Calling API: {} with method: {}", apiUrl, httpMethod);
-        // Use RestTemplate to make the API call
-        // You might need to convert toolInput to the appropriate format for the API
-        // call
+        
+        log.info("Calling API: {} with method: {}", apiUrl, httpMethod);        
         log.debug("Tool input: {}", toolInput);
         RestTemplate restTemplate = new RestTemplate();
 
-        // Example: Make a GET call
         ResponseEntity<String> response = restTemplate.exchange(apiUrl, httpMethod, null, String.class);
         return response.getBody();
 
@@ -39,7 +35,7 @@ public class DynamicApiToolCallback implements ToolCallback {
 
     @Override
     public String call(String toolInput, @Nullable ToolContext toolContext) {
-        // If you don't care about context, just delegate
+    
         return call(toolInput);
     }
 
