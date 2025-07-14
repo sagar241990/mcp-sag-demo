@@ -1,0 +1,127 @@
+openapi: 3.0.1
+info:
+  title: Customer Service API
+  version: 1.0.0
+  description: API to perform CRUD operations on customers
+
+paths:
+  /api/customers:
+    get:
+      summary: Get all customers
+      description: Retrieve a list of all customers.
+      responses:
+        '200':
+          description: List of customers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+
+    post:
+      summary: Create a new customer
+      description: Add a new customer to the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerCreateRequest'
+      responses:
+        '201':
+          description: Customer created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+
+  /api/customers/{customerId}:
+    get:
+      summary: Get customer by ID
+      description: Retrieve customer details by their unique ID.
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: Customer's unique identifier
+          schema:
+            type: integer
+            example: 101
+      responses:
+        '200':
+          description: Customer details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '404':
+          description: Customer not found
+
+    put:
+      summary: Update customer
+      description: Update an existing customer's details.
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: Customer's unique identifier
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerUpdateRequest'
+      responses:
+        '200':
+          description: Customer updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+
+    delete:
+      summary: Delete customer
+      description: Delete a customer by their ID.
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: Customer's unique identifier
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Customer deleted successfully
+
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 101
+        name:
+          type: string
+          example: John Doe
+        email:
+          type: string
+          example: john.doe@example.com
+    CustomerCreateRequest:
+      type: object
+      required: [name, email]
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+    CustomerUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string

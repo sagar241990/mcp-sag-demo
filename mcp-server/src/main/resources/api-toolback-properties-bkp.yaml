@@ -1,0 +1,55 @@
+tools:
+  - name: getAllCustomers
+    description: Retrieve a list of all customers.
+    inputSchema: |
+      {
+        "type": "object",
+        "properties": { }
+      }
+
+  - name: createCustomer
+    description: Add a new customer to the database.
+    inputSchema: |
+      {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "email": { "type": "string" }
+        },
+        "required": ["name", "email"]
+      }
+
+  - name: getCustomerById
+    description: Retrieve customer details by their unique ID.
+    inputSchema: |
+      {
+        "type": "object",
+        "properties": {
+          "customerId": { "type": "integer", "description": "Customer's unique identifier" }
+        },
+        "required": ["customerId"]
+      }
+
+  - name: updateCustomer
+    description: Update an existing customer's details.
+    inputSchema: |
+      {
+        "type": "object",
+        "properties": {
+          "customerId": { "type": "integer", "description": "Customer's unique identifier" },
+          "name": { "type": "string" },
+          "email": { "type": "string" }
+        },
+        "required": ["customerId"]
+      }
+
+  - name: deleteCustomer
+    description: Delete a customer by their ID.
+    inputSchema: |
+      {
+        "type": "object",
+        "properties": {
+          "customerId": { "type": "integer", "description": "Customer's unique identifier" }
+        },
+        "required": ["customerId"]
+      }
